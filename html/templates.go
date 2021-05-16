@@ -36,7 +36,7 @@ var PlaylistHeaderTemplate = `
 		<img class="spotify-playlist-img" src="{{ .Img }}" height=200 width=200 />
 		<div class="spotify-playlist-content">
 			<h2 class="spotify-playlist-name">{{ .Name }}</h2>
-			<p class="spotify-playlist-description>{{ .Description }}</p>
+			<p class="spotify-playlist-description">{{ .Description }}</p>
 		</div>
 	</header>
 `
