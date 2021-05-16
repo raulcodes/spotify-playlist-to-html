@@ -4,9 +4,9 @@ var ParentTemplate = `
 	<link rel="stylesheet" media="all" href="style.css">
 	<div class="spotify-playlist-container">
 		{{ .Header }}
-		<div class="spotify-playlist-list">
+		<ul class="spotify-playlist-list">
 			{{ .Tracks }}
-		</div>
+		</ul>
 	</div>
 `
 
@@ -16,13 +16,13 @@ type ParentInfo struct {
 }
 
 var TrackTemplate = `
-	<div class="spotify-playlist-track">
+	<li class="spotify-playlist-track">
 		<img class="spotify-playlist-track-img" src="{{ .Img }}" height=100 width=100 />
 		<div class="spotify-playlist-track-content">
 			<h3 class="spotify-playlist-track-name">{{ .TrackName }}</h3>
 			<p class="spotify-playlist-track-artist">{{ .ArtistsNames }}</p>
 		</div>
-	</div>
+	</li>
 `
 
 type TrackInfo struct {
