@@ -5,7 +5,8 @@ import (
 
 	"github.com/raulcodes/test/parser"
 
-	spotify "github.com/raulcodes/spotify-web-api"
+	"github.com/raulcodes/spotifyWebAPI/authorization"
+	"github.com/raulcodes/spotifyWebAPI/playlist"
 )
 
 func main() {
@@ -14,14 +15,14 @@ func main() {
 	clientID := os.Getenv("SPOTIFY_CLIENT_ID")
 	clientSecret := os.Getenv("SPOTIFY_CLIENT_SECRET")
 
-	client := spotify.NewClient(clientID, clientSecret)
+	client := authorization.NewClient(clientID, clientSecret)
 	tokenRes, err := client.AccessToken()
 	if err != nil {
 		panic(err)
 	}
 
-	client.SetToken(tokenRes.AccessToken)
-	playlist, err := client.GetPlaylist(arg)
+	playlistClient := playlist.NewClient(tokenRes.AccessToken)
+	playlist, err := playlistClient.GetPlaylist(arg)
 	if err != nil {
 		panic(err)
 	}

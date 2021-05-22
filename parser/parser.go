@@ -7,19 +7,19 @@ import (
 	"strings"
 	"text/template"
 
-	spotify "github.com/raulcodes/spotify-web-api"
+	"github.com/raulcodes/spotifyWebAPI/types"
 	"github.com/raulcodes/test/html"
 )
 
 type Playlist struct {
-	spotify.PlaylistObj
+	types.PlaylistObj
 }
 
 type PlaylistImpl interface {
 	HandlePlaylistRes() (string, error)
 }
 
-func NewPlaylistParser(playlist spotify.PlaylistObj) Playlist {
+func NewPlaylistParser(playlist types.PlaylistObj) Playlist {
 	return Playlist{playlist}
 }
 
@@ -63,7 +63,7 @@ func (p Playlist) HandleParentTemplate(info html.ParentInfo) error {
 	return nil
 }
 
-func handleTrack(track *spotify.TrackObj) (string, error) {
+func handleTrack(track *types.TrackObj) (string, error) {
 	html, err := html.TrackHTML(*track)
 	if err != nil {
 		return "", err
@@ -76,7 +76,7 @@ func handleTrack(track *spotify.TrackObj) (string, error) {
 	return html, nil
 }
 
-func handlePlaylistHeader(playlist *spotify.PlaylistObj) (string, error) {
+func handlePlaylistHeader(playlist *types.PlaylistObj) (string, error) {
 	str, err := html.PlaylistHeaderHTML(*playlist)
 	err = getPlaylistImg(playlist.Images[0].URL)
 	if err != nil {
@@ -93,7 +93,7 @@ func getPlaylistImg(url string) error {
 	return nil
 }
 
-func getAlbumArt(track *spotify.TrackObj) error {
+func getAlbumArt(track *types.TrackObj) error {
 	filepath := html.BuildFilePath(track.ID)
 
 	err := downloadFile(filepath, track.Album.Images[0].URL)

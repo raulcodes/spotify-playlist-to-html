@@ -5,10 +5,10 @@ import (
 	"strings"
 	"text/template"
 
-	spotify "github.com/raulcodes/spotify-web-api"
+	"github.com/raulcodes/spotifyWebAPI/types"
 )
 
-func TrackHTML(track spotify.TrackObj) (string, error) {
+func TrackHTML(track types.TrackObj) (string, error) {
 	var artists []string
 	for _, s := range track.Artists {
 		artists = append(artists, s.Name)
@@ -20,6 +20,7 @@ func TrackHTML(track spotify.TrackObj) (string, error) {
 		Img:          img,
 		TrackName:    track.Name,
 		ArtistsNames: artistStr,
+		Href:         track.Href,
 	}
 	tmpl, err := template.New("html").Parse(TrackTemplate)
 	if err != nil {
@@ -35,11 +36,12 @@ func TrackHTML(track spotify.TrackObj) (string, error) {
 	return output.String(), nil
 }
 
-func PlaylistHeaderHTML(playlist spotify.PlaylistObj) (string, error) {
+func PlaylistHeaderHTML(playlist types.PlaylistObj) (string, error) {
 	info := PlaylistInfo{
 		Img:         "images/playlist-cover.png",
 		Name:        playlist.Name,
 		Description: playlist.Description,
+		Href:        playlist.Href,
 	}
 	tmpl, err := template.New("html").Parse(PlaylistHeaderTemplate)
 	if err != nil {
