@@ -20,7 +20,7 @@ func TrackHTML(track types.TrackObj) (string, error) {
 		Img:          img,
 		TrackName:    track.Name,
 		ArtistsNames: artistStr,
-		Href:         track.Href,
+		ExternalURL:  track.ExternalURLs.Spotify,
 	}
 	tmpl, err := template.New("html").Parse(TrackTemplate)
 	if err != nil {
@@ -41,7 +41,7 @@ func PlaylistHeaderHTML(playlist types.PlaylistObj) (string, error) {
 		Img:         "images/playlist-cover.png",
 		Name:        playlist.Name,
 		Description: playlist.Description,
-		Href:        playlist.Href,
+		ExternalURL: playlist.ExternalURLS.Spotify,
 	}
 	tmpl, err := template.New("html").Parse(PlaylistHeaderTemplate)
 	if err != nil {
